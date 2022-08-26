@@ -2,7 +2,7 @@ from ssg import parsers, hooks
 
 files=[]
 
-hooks.register("collect_files")
+@hooks.register("collect_files")
 def collect_files(source, site_parsers):
     valid = lambda p : not p.isinstance(parsers.ResourceParser)
     for path in source.rglob("*"):
@@ -10,7 +10,7 @@ def collect_files(source, site_parsers):
             if parser.valid_file_ext(path.suffix):
                 files.append(path)
 
-hooks.register("generate_menu")
+@hooks.register("generate_menu")
 def generate_menu(html, ext):
     template = '<li><a href="{}{}">{}</a></li>'
     menu_item = lambda name, ext : template.format(name, ext) 
